@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
-  const BASE_URL = "http://localhost:30032/course";
-
+const BASE_URL = "http://localhost:30032/course";
   const [courses, setCourses] = useState([]);
   const [newCourse, setNewCourse] = useState({
     title: "",
@@ -25,6 +24,7 @@ function App() {
   }, []);
 
   const addCourse = async () => {
+    try{
     await fetch(`${BASE_URL}/add`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -34,6 +34,10 @@ function App() {
     alert("Course Added!");
     setNewCourse({ title: "", faculty: "", credits: "" });
     loadCourses();
+  }catch(error){
+    console.log(error);
+    
+  }
   };
 
   const searchCourse = async () => {
